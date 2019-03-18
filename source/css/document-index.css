@@ -4,6 +4,7 @@ vamtiger-cover-figure[data-loaded]
 }
 
 vamtiger-cover-figure [slot="vamtiger-cover-figure"],
+vamtiger-cover-figure [slot="template"],
 vamtiger-cover-figure [data-overlay]
 {
     width: 100%;
@@ -11,6 +12,21 @@ vamtiger-cover-figure [data-overlay]
 
     grid-column: 1;
     grid-row: 1;
+}
+
+vamtiger-cover-figure [slot="vamtiger-cover-figure"]
+{
+    z-index: 0;
+}
+
+vamtiger-cover-figure [data-overlay]
+{
+    z-index: 1;
+}
+
+vamtiger-cover-figure [slot="template"]
+{
+    z-index: 2;
 }
 
 vamtiger-cover-figure [slot="vamtiger-cover-figure"]
@@ -38,7 +54,7 @@ vamtiger-cover-figure[data-loaded] [slot="dark-overlay"]:last-of-type
     background: linear-gradient(
         180deg,rgba(0, 0, 0, 0)
         5%,rgba(0, 0, 0, 0)
-        40%,rgba(0, 0, 0, 0.0)
+        40%,rgba(0, 0, 0, 0.3)
         60%,rgba(0, 0, 0, 0.7)
     );
 }

@@ -15,6 +15,14 @@ const testHtmlDestination = resolvePath(
     __dirname,
     '../index.html'
 );
+const testHtmlTemplateSource = resolvePath(
+    __dirname,
+    '../../source/test/html/template.svg'
+);
+const testHtmlTemplateDestination = resolvePath(
+    __dirname,
+    '../template.svg'
+);
 const testCssSource = resolvePath(
     __dirname,
     '../../source/test/html/test.css'
@@ -34,6 +42,10 @@ describe('Generate', function () {
             copyFile({
                 source: testCssSource,
                 destination: testCssDestination
+            }),
+            copyFile({
+                source: testHtmlTemplateSource,
+                destination: testHtmlTemplateDestination
             })
         ]);
     });

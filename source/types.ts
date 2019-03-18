@@ -15,11 +15,14 @@ export enum DataAttribute {
     image = 'image',
     description = 'description',
     loaded = 'loaded',
-    overlay = 'overlay'
+    overlay = 'overlay',
+    template = 'template',
+    selector = 'selector'
 }
 
 export enum SlotName {
-    darkOverlay = 'dark-overlay'
+    darkOverlay = 'dark-overlay',
+    template = 'template'
 }
 
 export enum ObservedAttributes {
@@ -53,6 +56,8 @@ export interface IDataset extends DOMStringMap {
     description: string;
     loaded?: '';
     overlay?: SlotName;
+    template?: string;
+    selector?: string;
 }
 
 export type AttributesKey = keyof IAttributes;

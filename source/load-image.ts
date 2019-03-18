@@ -1,9 +1,10 @@
+import getElement from '../node_modules/vamtiger-browser-method/source/get-element';
 import {
     ILoadImage,
     Selector,
     IDataset,
     StringConstant,
-    DataAttribute
+    SlotName
 } from './types';
 import { name } from './element';
 import getTemplate from './get-template';
@@ -14,15 +15,14 @@ const { nothing } = StringConstant;
 export default async function ({ element }: ILoadImage) {
     const dataset = element.dataset as IDataset;
     const {
-        image: selector
-    } = Selector;
-    const {
         image: src,
-        description: alt = '',
-        overlay: overlayPrefix
+        description: alt = nothing,
+        overlay: overlayPrefix,
+        template: url = nothing,
+        selector = nothing
     } = dataset;
     const image = src && getTemplate({
-        selector,
+        selector: Selector.image,
         attributes: {
             slot: name
         },
@@ -30,6 +30,11 @@ export default async function ({ element }: ILoadImage) {
             src,
             alt
         }
+    });
+    const template = url && await getElement({
+        name: url,
+        url,
+        selector
     });
     const overlays = overlayPrefix && [
         getTemplate({
@@ -59,4 +64,12 @@ export default async function ({ element }: ILoadImage) {
             element.appendChild(overlay);
         }
     });
+
+    if (template) {
+        template.slot = SlotName.template;
+
+        element.appendChild(template);
+
+        element.dataset.loaded = nothing;
+    }
 }

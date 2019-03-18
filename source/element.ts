@@ -23,7 +23,10 @@ export default class VamtigerCoverFigure extends HTMLElement {
         super();
 
         const { dataset } = this;
-        const { overlay: overlaySlotNamePrefix } = dataset;
+        const {
+            overlay: overlaySlotNamePrefix,
+            template
+        } = dataset;
         const shadowRoot = this.attachShadow(shadowRootConfig);
         const stylesheet = getTemplate({
             selector: Selector.style
@@ -40,10 +43,17 @@ export default class VamtigerCoverFigure extends HTMLElement {
                 name: `${overlaySlotNamePrefix}-overlay`
             }
         });
+        const templateSlot = template && getTemplate({
+            selector: Selector.slot,
+            properties: {
+                name: SlotName.template
+            }
+        });
         const elements = [
             stylesheet,
             slot,
-            overlaySlot
+            overlaySlot,
+            templateSlot
         ];
 
         elements.forEach(element => element && shadowRoot.appendChild(element));
