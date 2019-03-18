@@ -1,0 +1,144 @@
+vamtiger-cover-figure[data-loaded]
+{
+    animation: vamtiger-cover-figure-fade-in 335ms linear forwards;
+}
+
+vamtiger-cover-figure [slot="vamtiger-cover-figure"],
+vamtiger-cover-figure [data-overlay]
+{
+    width: 100%;
+    height: 100%;
+
+    grid-column: 1;
+    grid-row: 1;
+}
+
+vamtiger-cover-figure [slot="vamtiger-cover-figure"]
+{
+    object-fit: cover;
+}
+
+vamtiger-cover-figure [data-overlay]
+{
+    position: relative;
+}
+
+vamtiger-cover-figure[data-loaded] [slot="dark-overlay"]:first-of-type
+{
+    background: linear-gradient(
+        180deg,rgba(0, 0, 0, 0.7)
+        5%,rgba(0, 0, 0, 0.3)
+        40%,rgba(0, 0, 0, 0)
+        60%,rgba(0, 0, 0, 0)
+    );
+}
+
+vamtiger-cover-figure[data-loaded] [slot="dark-overlay"]:last-of-type
+{
+    background: linear-gradient(
+        180deg,rgba(0, 0, 0, 0)
+        5%,rgba(0, 0, 0, 0)
+        40%,rgba(0, 0, 0, 0.0)
+        60%,rgba(0, 0, 0, 0.7)
+    );
+}
+
+vamtiger-cover-figure [data-overlay]:first-of-type
+{
+    animation:
+        vamtiger-cover-figure-fade-in 275ms linear forwards,
+        vamtiger-cover-figure-show-top-overlay 275ms forwards;
+}
+
+vamtiger-cover-figure [data-overlay]:last-of-type
+{
+    animation:
+        vamtiger-cover-figure-fade-in 275ms linear forwards,
+        vamtiger-cover-figure-show-bottom-overlay 275ms forwards;
+}
+
+vamtiger-cover-figure[data-hide-overlay] [data-overlay]:first-of-type
+{
+    animation:
+        vamtiger-cover-figure-fade-out 275ms linear forwards,
+        vamtiger-cover-figure-hide-top-overlay 275ms forwards;
+}
+
+vamtiger-cover-figure[data-hide-overlay] [data-overlay]:last-of-type
+{
+    animation:
+        vamtiger-cover-figure-fade-out 275ms linear forwards,
+        vamtiger-cover-figure-hide-bottom-overlay 275ms forwards;
+}
+
+@keyframes vamtiger-cover-figure-fade-in {
+    from
+    {
+        opacity: 0;
+    }
+
+    to
+    {
+        opacity: 1;
+    }
+}
+
+@keyframes vamtiger-cover-figure-fade-out {
+    from
+    {
+        opacity: 1;
+    }
+
+    to
+    {
+        opacity: 0;
+    }
+}
+
+@keyframes vamtiger-cover-figure-hide-top-overlay {
+    from
+    {
+        top: 0;
+    }
+
+    to
+    {
+        top: -5em;
+    }
+}
+
+@keyframes vamtiger-cover-figure-hide-bottom-overlay {
+    from
+    {
+        top: 0;
+    }
+
+    to
+    {
+        top: 5em;
+    }
+}
+
+@keyframes vamtiger-cover-figure-show-top-overlay {
+    from
+    {
+        top: -5em;
+    }
+
+    to
+    {
+        top: 0;
+    }
+}
+
+@keyframes vamtiger-cover-figure-show-bottom-overlay {
+    from
+    {
+        top: 5em;
+    }
+
+    to
+    {
+        top: 0;
+    }
+}
