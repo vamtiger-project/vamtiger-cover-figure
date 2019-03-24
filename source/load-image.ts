@@ -1,10 +1,8 @@
-import getElement from '../node_modules/vamtiger-browser-method/source/get-element';
 import {
     ILoadImage,
     Selector,
     IDataset,
-    StringConstant,
-    SlotName
+    StringConstant
 } from './types';
 import { name } from './element';
 import getTemplate from './get-template';
@@ -16,26 +14,28 @@ export default async function ({ element }: ILoadImage) {
     const dataset = element.dataset as IDataset;
     const {
         image: src,
-        description: alt = nothing,
+        description,
         overlay: overlayPrefix,
-        template: url = nothing,
-        selector = nothing
+        imageCaptionTitle,
+        imageCaptionSubtitle
     } = dataset;
+    const alt = imageCaptionTitle && imageCaptionSubtitle && `${imageCaptionTitle}: imageCaptionSubtitle`
+        || imageCaptionTitle
+        || description
+        || nothing;
     const image = src && getTemplate({
         selector: Selector.image,
-        attributes: {
-            slot: name
-        },
         properties: {
             src,
             alt
         }
     });
-    const template = url && await getElement({
-        name: url,
-        url,
-        selector
-    });
+    const imageFigure = image && getTemplate({
+        selector: Selector.figure,
+        attributes: {
+            slot: name
+        }
+    })
     const overlays = overlayPrefix && [
         getTemplate({
             selector: Selector.overlay,
@@ -51,10 +51,12 @@ export default async function ({ element }: ILoadImage) {
         })
     ];
 
-    if (image) {
+    if (image && imageFigure) {
         image.addEventListener('load', handleLoaded);
 
-        element.appendChild(image);
+        imageFigure.appendChild(image);
+
+        element.appendChild(imageFigure);
     }
 
     overlays && overlays.forEach(overlay => {
@@ -64,12 +66,4 @@ export default async function ({ element }: ILoadImage) {
             element.appendChild(overlay);
         }
     });
-
-    if (template) {
-        template.slot = SlotName.template;
-
-        element.appendChild(template);
-
-        element.dataset.loaded = nothing;
-    }
 }

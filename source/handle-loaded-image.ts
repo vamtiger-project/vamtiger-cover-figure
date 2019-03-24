@@ -1,14 +1,15 @@
 import {
     StringConstant,
-    IDataset
+    IDataset,
+    IHandleLoadedImage
 } from './types';
-import VamtigerCoverFigure from './element';
+import VamtigerCoverFigure, { name } from './element';
 
 const { nothing } = StringConstant;
 
-export default function handleLoadedImage({ currentTarget }: Event) {
+export default function handleLoadedImage({ currentTarget, element: currentElement }: Event & IHandleLoadedImage) {
     const image = currentTarget as HTMLElement;
-    const element = image.parentElement as VamtigerCoverFigure;
+    const element = currentElement || image.closest(name) as VamtigerCoverFigure;
     const dataset = element.dataset as IDataset;
 
     image.removeEventListener('loaded', handleLoadedImage);

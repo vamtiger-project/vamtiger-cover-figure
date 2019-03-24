@@ -1,1 +1,1 @@
-export default '<slot></slot><img><div></div>';
+export default '<slot></slot><img><figure data-image-figure></figure><figcaption data-image-caption><figure data-icon-figure><img data-icon></figure><header data-title-header><h5 data-title></h5></header><span data-subtitle></span></figcaption><figcaption data-center-caption></figcaption><div></div>';

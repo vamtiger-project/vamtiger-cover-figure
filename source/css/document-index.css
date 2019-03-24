@@ -1,21 +1,71 @@
-vamtiger-cover-figure[data-loaded]
+vamtiger-cover-figure,
+vamtiger-cover-figure figure,
+vamtiger-cover-figure figcaption,
+vamtiger-cover-figure header,
+vamtiger-cover-figure h5
 {
-    animation: vamtiger-cover-figure-fade-in 335ms linear forwards;
+    margin: 0;
+    padding: 0;
 }
 
 vamtiger-cover-figure [slot="vamtiger-cover-figure"],
+vamtiger-cover-figure [data-overlay],
+vamtiger-cover-figure [slot="caption"],
+vamtiger-cover-figure [slot="caption"] [data-icon-figure]
+{
+    position: relative;
+}
+
+vamtiger-cover-figure figure,
+vamtiger-cover-figure figcaption,
+vamtiger-cover-figure [slot="center-caption"] [data-caption-text],
+vamtiger-cover-figure[data-center-caption-uppercase][data-center-caption-hashtag] [slot="center-caption"] [data-caption-text]:before
+{
+    display: inline-block;
+}
+
+vamtiger-cover-figure,
+vamtiger-cover-figure [slot="caption"][data-caption-image]
+{
+    animation: vamtiger-cover-figure-fade-out 0ms linear forwards;
+
+}
+
+vamtiger-cover-figure[data-loaded],
+vamtiger-cover-figure [slot="caption"][data-caption-image][data-loaded]
+{
+    animation: vamtiger-cover-figure-fade-in 275ms linear forwards;
+}
+
+vamtiger-cover-figure [slot="vamtiger-cover-figure"],
+vamtiger-cover-figure [slot="template"],
+vamtiger-cover-figure [slot="center-caption"],
+vamtiger-cover-figure [data-overlay]
+{
+    grid-column: 1;
+    grid-row: 1;
+}
+
+vamtiger-cover-figure [slot="vamtiger-cover-figure"],
+vamtiger-cover-figure [slot="vamtiger-cover-figure"] > img,
 vamtiger-cover-figure [slot="template"],
 vamtiger-cover-figure [data-overlay]
 {
     width: 100%;
     height: 100%;
-
-    grid-column: 1;
-    grid-row: 1;
 }
 
-vamtiger-cover-figure [slot="vamtiger-cover-figure"]
+vamtiger-cover-figure [slot="vamtiger-cover-figure"] > img,
+vamtiger-cover-figure [slot="caption"] [data-icon] {
+    width: 100%;
+    max-height: 100%;
+}
+
+vamtiger-cover-figure [slot="vamtiger-cover-figure"] > img
 {
+    display: inline-block;
+    object-fit: cover;
+
     z-index: 0;
 }
 
@@ -29,14 +79,76 @@ vamtiger-cover-figure [slot="template"]
     z-index: 2;
 }
 
-vamtiger-cover-figure [slot="vamtiger-cover-figure"]
+vamtiger-cover-figure [slot="caption"]
 {
-    object-fit: cover;
+    z-index: 3;
+
+    position: absolute;
+    left: 0;
+    bottom: 0;
+
+    display: grid;
+    grid-template-areas:
+        "icon title"
+        "icon subtitle";
+    grid-column-gap: 0.5em;
+    grid-row-gap: 0.2em;
+    padding: 0 0 10px 10px;
+
+    color: white;
+
+    letter-spacing: 0.04em;
 }
 
-vamtiger-cover-figure [data-overlay]
+vamtiger-cover-figure [slot="center-caption"]
 {
-    position: relative;
+    z-index: 4;
+
+    display: grid;
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+
+    font-size: 2em;
+}
+
+vamtiger-cover-figure[data-center-caption-uppercase] [slot="center-caption"]
+{
+    text-transform: uppercase;
+}
+
+vamtiger-cover-figure[data-center-caption-uppercase][data-center-caption-hashtag] [slot="center-caption"] [data-caption-text]:before
+{
+    content: "#";
+}
+
+vamtiger-cover-figure [slot="caption"] [data-icon-figure] {
+    grid-area: icon;
+
+    display: grid;
+}
+
+vamtiger-cover-figure [slot="caption"] [data-icon] {
+    height: 45px;
+    width: 45px;
+}
+
+vamtiger-cover-figure [slot="caption"] [data-title] {
+    grid-area: title;
+    font-size: 1.1em;
+}
+
+vamtiger-cover-figure [slot="caption"] [data-subtitle] {
+    grid-area: subtitle;
+    font-size: 0.8em;
+}
+
+vamtiger-cover-figure [slot="caption"] [data-title],
+vamtiger-cover-figure [slot="caption"] [data-subtitle],
+vamtiger-cover-figure [slot="center-caption"]
+{
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 1);
 }
 
 vamtiger-cover-figure[data-loaded] [slot="dark-overlay"]:first-of-type
@@ -85,6 +197,65 @@ vamtiger-cover-figure[data-hide-overlay] [data-overlay]:last-of-type
     animation:
         vamtiger-cover-figure-fade-out 275ms linear forwards,
         vamtiger-cover-figure-hide-bottom-overlay 275ms forwards;
+}
+
+@element vamtiger-cover-figure and (max-width: 500px)
+{
+    :self [slot="caption"]
+    {
+        padding-left: 5px;
+
+        letter-spacing: 0.02em;
+    }
+
+    :self [slot="caption"] [data-title-header],
+    :self [slot="caption"] [data-subtitle]
+    {
+        position: relative;
+        left: -5px;
+    }
+
+    :self [slot="caption"] [data-title]
+    {
+        font-size: 0.9em;
+    }
+
+    :self [slot="caption"] [data-subtitle]
+    {
+        font-size: 0.6em;
+    }
+
+    :self [slot="center-caption"]
+    {
+        font-size: 1.3em;
+    }
+}
+
+@element vamtiger-cover-figure and (max-height: 300px)
+{
+    :self [slot="caption"]
+    {
+        padding-left: 5px;
+
+        letter-spacing: 0.02em;
+    }
+
+    :self [slot="caption"] [data-title-header],
+    :self [slot="caption"] [data-subtitle]
+    {
+        position: relative;
+        left: -5px;
+    }
+
+    :self [slot="caption"] [data-title]
+    {
+        font-size: 0.9em;
+    }
+
+    :self [slot="caption"] [data-subtitle]
+    {
+        font-size: 0.6em;
+    }
 }
 
 @keyframes vamtiger-cover-figure-fade-in {

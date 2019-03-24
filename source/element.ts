@@ -1,5 +1,4 @@
 import loadScript from '../node_modules/vamtiger-browser-method/source/load-script';
-
 import {
     Selector,
     ObservedAttribute,
@@ -12,6 +11,7 @@ import {
 import css from './css/document-index';
 import getTemplate from './get-template';
 import loadImage from './load-image';
+import loadImageCaption from './load-image-caption'
 
 export const name = 'vamtiger-cover-figure';
 
@@ -49,11 +49,25 @@ export default class VamtigerCoverFigure extends HTMLElement {
                 name: SlotName.template
             }
         });
+        const captionSlot = getTemplate({
+            selector: Selector.slot,
+            properties: {
+                name: SlotName.caption
+            }
+        });
+        const centerCaptionSlot = getTemplate({
+            selector: Selector.slot,
+            properties: {
+                name: SlotName.centerCaption
+            }
+        });
         const elements = [
             stylesheet,
             slot,
             overlaySlot,
-            templateSlot
+            templateSlot,
+            captionSlot,
+            centerCaptionSlot
         ];
 
         elements.forEach(element => element && shadowRoot.appendChild(element));
@@ -64,9 +78,11 @@ export default class VamtigerCoverFigure extends HTMLElement {
     }
 
     async connectedCallback() {
-        await loadImage({
-            element: this
-        });
+        const element = this;
+
+        await loadImage({ element });
+
+        await loadImageCaption({ element });
     }
 
     attributeChangedCallback(name: ObservedAttribute, oldValue: string, newValue: string) {
