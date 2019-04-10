@@ -38,6 +38,10 @@ export enum SlotName {
     centerCaption = 'center-caption'
 }
 
+export enum EventName {
+    imageLoaded = 'imageLoaded'
+}
+
 export enum ObservedAttributes {
 
 }
