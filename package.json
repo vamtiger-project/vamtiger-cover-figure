@@ -2,7 +2,7 @@
     "name": "vamtiger-cover-figure",
     "version": "0.2.0",
     "description": "VAMTIGER Cover Figure",
-    "main": "build",
+    "main": "build/vamtiger-cover-figure.js",
     "scripts": {
         "test": "npm run clean && npm run build && npm run bundle-node-test && npm run bundle-browser-test && npm run mocha && npm run bundle-source",
         "mocha": "mocha build/test/node --recursive",
