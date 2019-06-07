@@ -1,4 +1,3 @@
-import loadScript from '../node_modules/vamtiger-browser-method/source/load-script';
 import {
     Selector,
     ObservedAttribute,
@@ -11,9 +10,11 @@ import {
 import css from './css/document-index';
 import getTemplate from './get-template';
 import loadImage from './load-image';
-import loadImageCaption from './load-image-caption'
 
 export const name = 'vamtiger-cover-figure';
+
+const { VamtigerBrowserMethod } = window;
+const { loadScript } = VamtigerBrowserMethod;
 
 css && loadScript({ name, css })
     .catch(console.error);
@@ -81,8 +82,6 @@ export default class VamtigerCoverFigure extends HTMLElement {
         const element = this;
 
         await loadImage({ element });
-
-        await loadImageCaption({ element });
     }
 
     attributeChangedCallback(name: ObservedAttribute, oldValue: string, newValue: string) {

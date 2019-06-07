@@ -1,84 +1,86 @@
 import {
     ILoadImageCaption,
     IDataset,
-    DataAttribute,
     Selector,
-    StringConstant,
     SlotName,
-    imageCaptionAttribute
+    EventName,
+    StringConstant,
+    TimeoutDuration
 } from './types';
 import getTemplate from './get-template';
-import handleLoadedImage from './handle-loaded-image';
 
-
+const { VamtigerBrowserMethod } = window;
+const { getData } = VamtigerBrowserMethod;
 const { nothing } = StringConstant;
+const { captionLoaded: timeout } = TimeoutDuration
 
 export default async function ({ element }: ILoadImageCaption) {
     const dataset = element.dataset as IDataset;
     const {
-        imageCaptionIcon,
-        imageCaptionTitle,
-        imageCaptionSubtitle,
-        centerCaption: currentCenterCaption = nothing
+        jsonLd: jsonLdUrl
     } = dataset;
-    const getCaption = imageCaptionAttribute.some(attribute => dataset.hasOwnProperty(attribute));
-    const getCenterCaption = currentCenterCaption ? true : false;
-    const alt = imageCaptionTitle && imageCaptionSubtitle && `${imageCaptionTitle}: imageCaptionSubtitle`
-        || imageCaptionTitle
-        || nothing;
-    const caption = getCaption && getTemplate({
+    const { jsonLd, json } = jsonLdUrl && await getData({ jsonLd: jsonLdUrl }) || { jsonLd: [], json: {} };
+    const [ captionJsonLd ] = jsonLd;
+    const svgCaptionUrl = json && json.svgCaption;
+    const titleText = captionJsonLd && captionJsonLd.name;
+    const subtitleText = captionJsonLd && captionJsonLd.description;
+    const responsiveSvg = titleText && subtitleText && svgCaptionUrl && getTemplate({
+        selector: Selector.vamtigerResponsiveSvg,
+        attributes: {
+            'data-json-ld': svgCaptionUrl
+        }
+    });
+    const iconFigure =  responsiveSvg && getTemplate({
+        selector: Selector.iconFigure
+    });
+    const titleHeader = titleText && getTemplate({
+        selector: Selector.titleHeader,
+        attributes: {
+            'data-json-ld': svgCaptionUrl
+        }
+    });
+    const title = titleHeader && titleHeader.querySelector<HTMLHeadingElement>(Selector.title);
+    const subtitle = subtitleText && getTemplate({
+        selector: Selector.subtitle,
+        properties: {
+            innerHTML: subtitleText
+        }
+    });
+    const captionElements = [
+        iconFigure,
+        titleHeader,
+        subtitle
+    ];
+    const caption = captionElements.every(captionElement => Boolean(captionElement)) && getTemplate({
         selector: Selector.imageCaption,
         attributes: {
             slot: SlotName.caption
         }
     });
-    const centerCaption = getCenterCaption && getTemplate({
-        selector: Selector.centerCaption,
-        properties: {
-            innerHTML: `<span data-caption-text>${currentCenterCaption}</span>`
-        },
-        attributes: {
-            slot: SlotName.centerCaption
-        }
-    })
-    const icon = caption && caption.querySelector<HTMLImageElement>(Selector.icon);
-    const title = caption && caption.querySelector<HTMLHeadingElement>(Selector.title);
-    const subtitle = caption && caption.querySelector<HTMLSpanElement>(Selector.subtitle);
-    const captions = [
-        {
-            element: title,
-            innerHTML: imageCaptionTitle
-        },
-        {
-            element: subtitle,
-            innerHTML: imageCaptionSubtitle
-        }
-    ];
 
-    if (icon) {
-        if (imageCaptionIcon) {
-            if (caption) {
-                icon.addEventListener('load', event => handleLoadedImage(Object.assign(
-                    event,
-                    {
-                        element: caption
-                    }
-                )));
+    if (responsiveSvg && iconFigure) {
+        responsiveSvg.addEventListener(EventName.svgLoaded, handleSvgLoaded);
 
-                caption.dataset[DataAttribute.captionImage] = nothing;
-            }
-
-            icon.src = imageCaptionIcon;
-        }
-
-        if (alt) {
-            icon.alt = alt;
-        }
+        iconFigure.appendChild(responsiveSvg);
     }
 
-    captions.forEach(({element, innerHTML}) => element && innerHTML && Object.assign(element, { innerHTML }));
+    if (title && titleText) {
+        title.innerHTML = titleText;
+    }
 
-    caption && element.appendChild(caption);
+    titleHeader && titleHeader.setAttribute('itemprop', 'name');
 
-    centerCaption && element.appendChild(centerCaption);
+    subtitle && subtitle.setAttribute('itemprop', 'description');
+
+    if (caption) {
+        captionElements.forEach(captionElement => captionElement && caption.appendChild(captionElement));
+
+        element.appendChild(caption);
+    }
+
+    function handleSvgLoaded() {
+        responsiveSvg && responsiveSvg.removeEventListener(EventName.svgLoaded, handleSvgLoaded);
+
+        caption && setTimeout(() => caption.dataset.loaded = nothing, timeout);
+    }
 }

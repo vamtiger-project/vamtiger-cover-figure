@@ -1,32 +1,46 @@
 import {
     ILoadImage,
-    Selector,
     IDataset,
-    StringConstant
+    Selector,
+    StringConstant,
+    MicroDataAttribute
 } from './types';
 import { name } from './element';
 import getTemplate from './get-template';
 import handleLoaded from './handle-loaded-image';
+import setMicroData from './set-microdata';
 
-const { nothing } = StringConstant;
+const { VamtigerBrowserMethod } = window;
+const { getData } = VamtigerBrowserMethod;
+const { nothing, colonSpace, slash } = StringConstant;
 
 export default async function ({ element }: ILoadImage) {
     const dataset = element.dataset as IDataset;
     const {
         image: src,
-        description,
         overlay: overlayPrefix,
-        imageCaptionTitle,
-        imageCaptionSubtitle
+        jsonLd: jsonLdUrl
     } = dataset;
-    const alt = imageCaptionTitle && imageCaptionSubtitle && `${imageCaptionTitle}: imageCaptionSubtitle`
-        || imageCaptionTitle
-        || description
-        || nothing;
-    const image = src && getTemplate({
+    const { jsonLd } = jsonLdUrl && await getData({ jsonLd: jsonLdUrl }) || { jsonLd: [] };
+    const [ imageData ] = jsonLd;
+    const url = imageData && imageData.image || src;
+    const alt = imageData && [
+        imageData.name,
+        imageData.description
+    ].filter(text => text).join(colonSpace);
+    const itemtype = imageData['@context'] && imageData['@type'] && [
+        imageData['@context'],
+        imageData['@type']
+    ].join(slash);
+    const microData = itemtype && {
+        itemscope: nothing,
+        itemtype
+    };
+    const microDataAttributes = microData && Object.keys(microData) as MicroDataAttribute[] || [];
+    const image = url && getTemplate({
         selector: Selector.image,
         properties: {
-            src,
+            src: url,
             alt
         }
     });
@@ -57,6 +71,10 @@ export default async function ({ element }: ILoadImage) {
         imageFigure.appendChild(image);
 
         element.appendChild(imageFigure);
+
+        element.dataset.loading = nothing;
+
+        image.setAttribute('itemprop', 'image');
     }
 
     overlays && overlays.forEach(overlay => {
@@ -66,4 +84,8 @@ export default async function ({ element }: ILoadImage) {
             element.appendChild(overlay);
         }
     });
+
+    microData && microDataAttributes.forEach(attribute => element.setAttribute(attribute, microData[attribute]));
+
+    setMicroData({ element });
 }

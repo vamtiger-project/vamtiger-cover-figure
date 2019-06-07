@@ -8,6 +8,17 @@ vamtiger-cover-figure h5
     padding: 0;
 }
 
+vamtiger-cover-figure::before
+{
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
 vamtiger-cover-figure [slot="vamtiger-cover-figure"],
 vamtiger-cover-figure [data-overlay],
 vamtiger-cover-figure [slot="caption"],
@@ -24,17 +35,31 @@ vamtiger-cover-figure[data-center-caption-uppercase][data-center-caption-hashtag
     display: inline-block;
 }
 
-vamtiger-cover-figure,
-vamtiger-cover-figure [slot="caption"][data-caption-image]
+vamtiger-cover-figure [slot="vamtiger-cover-figure"],
+vamtiger-cover-figure [slot="dark-overlay"],
+vamtiger-cover-figure [slot="caption"][data-image-caption]
 {
     animation: vamtiger-cover-figure-fade-out 0ms linear forwards;
 
 }
 
-vamtiger-cover-figure[data-loaded],
-vamtiger-cover-figure [slot="caption"][data-caption-image][data-loaded]
+vamtiger-cover-figure[data-loaded] [slot="vamtiger-cover-figure"],
+vamtiger-cover-figure[data-loaded] [slot="dark-overlay"]
 {
     animation: vamtiger-cover-figure-fade-in 275ms linear forwards;
+}
+
+vamtiger-cover-figure[data-loaded] [slot="caption"]
+{
+    visibility: hidden;
+}
+
+vamtiger-cover-figure[data-loaded] [slot="caption"][data-image-caption][data-loaded]
+{
+    visibility: visible;
+    animation:
+        vamtiger-cover-figure-fade-in 275ms linear forwards,
+        vamtiger-cover-figure-slide-in 175ms linear forwards;
 }
 
 vamtiger-cover-figure [slot="vamtiger-cover-figure"],
@@ -91,7 +116,7 @@ vamtiger-cover-figure [slot="caption"]
     grid-template-areas:
         "icon title"
         "icon subtitle";
-    grid-column-gap: 0.5em;
+    grid-column-gap: 0.7em;
     grid-row-gap: 0.2em;
     padding: 0 0 10px 10px;
 
@@ -127,21 +152,24 @@ vamtiger-cover-figure [slot="caption"] [data-icon-figure] {
     grid-area: icon;
 
     display: grid;
+
+    justify-content: center;
+    align-items: center;
 }
 
 vamtiger-cover-figure [slot="caption"] [data-icon] {
-    height: 45px;
-    width: 45px;
+    height: 50px;
+    width: 50px;
 }
 
 vamtiger-cover-figure [slot="caption"] [data-title] {
     grid-area: title;
-    font-size: 1.1em;
+    font-size: 1.2em;
 }
 
 vamtiger-cover-figure [slot="caption"] [data-subtitle] {
     grid-area: subtitle;
-    font-size: 0.8em;
+    font-size: 0.9em;
 }
 
 vamtiger-cover-figure [slot="caption"] [data-title],
@@ -169,6 +197,29 @@ vamtiger-cover-figure[data-loaded] [slot="dark-overlay"]:last-of-type
         40%,rgba(0, 0, 0, 0.3)
         60%,rgba(0, 0, 0, 0.7)
     );
+}
+
+vamtiger-cover-figure::before
+{
+    display: inline-block;
+    content: "";
+    opacity: 0;
+    transition: opacity 335ms linear;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+vamtiger-cover-figure[data-loading]::before
+{
+    opacity: 1;
+    animation: vamtiger-cover-figure-loading 675ms linear alternate infinite;
+}
+
+vamtiger-cover-figure[data-loaded]::before
+{
+    display: none;
 }
 
 vamtiger-cover-figure [data-overlay]:first-of-type
@@ -215,16 +266,6 @@ vamtiger-cover-figure[data-hide-overlay] [data-overlay]:last-of-type
         left: -5px;
     }
 
-    :self [slot="caption"] [data-title]
-    {
-        font-size: 0.9em;
-    }
-
-    :self [slot="caption"] [data-subtitle]
-    {
-        font-size: 0.6em;
-    }
-
     :self [slot="center-caption"]
     {
         font-size: 1.3em;
@@ -245,16 +286,6 @@ vamtiger-cover-figure[data-hide-overlay] [data-overlay]:last-of-type
     {
         position: relative;
         left: -5px;
-    }
-
-    :self [slot="caption"] [data-title]
-    {
-        font-size: 0.9em;
-    }
-
-    :self [slot="caption"] [data-subtitle]
-    {
-        font-size: 0.6em;
     }
 }
 
@@ -327,5 +358,41 @@ vamtiger-cover-figure[data-hide-overlay] [data-overlay]:last-of-type
     to
     {
         top: 0;
+    }
+}
+
+@keyframes vamtiger-cover-figure-loading
+{
+    from
+    {
+        background-color: rgba(241, 241, 241, 1);
+    }
+    to
+    {
+        background-color: rgba(231, 231, 231, 1);
+    }
+}
+
+@keyframes vamtiger-cover-figure-loading
+{
+    from
+    {
+        background-color: rgba(241, 241, 241, 1);
+    }
+    to
+    {
+        background-color: rgba(231, 231, 231, 1);
+    }
+}
+
+@keyframes vamtiger-cover-figure-slide-in
+{
+    from
+    {
+        left: -2em;
+    }
+    to
+    {
+        left: 0;
     }
 }

@@ -1,7 +1,19 @@
-import defineCustomElement from '../node_modules/vamtiger-browser-method/source/define-custom-element';
 import constructor, { name } from './element';
+import {
+    dependencies
+} from './config'
 
-defineCustomElement({
+const { VamtigerBrowserMethod } = window;
+const { defineCustomElement, loadScript } = VamtigerBrowserMethod;
+const params = {
     name,
     constructor
-});
+};
+
+async function load() {
+    await Promise.all(dependencies.map(src => loadScript({ src })));
+
+    defineCustomElement(params);
+}
+
+load().catch(console.warn);

@@ -5,6 +5,7 @@ import {
     EventName
 } from './types';
 import VamtigerCoverFigure, { name } from './element';
+import loadImageCaption from './load-image-caption'
 
 const { nothing } = StringConstant;
 const eventParams = {
@@ -13,7 +14,7 @@ const eventParams = {
 
 export default function handleLoadedImage({ currentTarget, element: currentElement }: Event & IHandleLoadedImage) {
     const image = currentTarget as HTMLElement;
-    const element = currentElement || image.closest(name) as VamtigerCoverFigure;
+    const element = (currentElement || image.closest(name)) as VamtigerCoverFigure;
     const dataset = element.dataset as IDataset;
     const imageLoadedEvent = new CustomEvent(
         EventName.imageLoaded,
@@ -24,5 +25,9 @@ export default function handleLoadedImage({ currentTarget, element: currentEleme
 
     dataset.loaded = nothing;
 
+    delete element.dataset.loading;
+
     element.dispatchEvent(imageLoadedEvent);
+
+    loadImageCaption({ element });
 }
