@@ -43,9 +43,16 @@ vamtiger-cover-figure [slot="caption"][data-image-caption]
 
 }
 
+vamtiger-cover-figure [slot="vamtiger-cover-figure"],
+vamtiger-cover-figure [slot="dark-overlay"]
+{
+    visibility: hidden;
+}
+
 vamtiger-cover-figure[data-loaded] [slot="vamtiger-cover-figure"],
 vamtiger-cover-figure[data-loaded] [slot="dark-overlay"]
 {
+    visibility: visible;
     animation: vamtiger-cover-figure-fade-in 275ms linear forwards;
 }
 

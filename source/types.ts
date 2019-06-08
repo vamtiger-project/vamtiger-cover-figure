@@ -8,7 +8,7 @@ export enum StringConstant {
 }
 
 export enum TimeoutDuration {
-    captionLoaded = 500
+    captionLoaded = 1000
 }
 
 export enum DataAttribute {
@@ -35,7 +35,8 @@ export enum Selector {
     vamtigerResponsiveSvg = 'vamtiger-responsive-svg',
     iconFigure = '[data-icon-figure]',
     linkedDataCaption = '[data-linked-data-caption]',
-    linkedDataCaptionElement = '[data-linked-data-caption-element]'
+    linkedDataCaptionElement = '[data-linked-data-caption-element]',
+    a = 'a'
 }
 
 export enum DataAttribute {
@@ -65,6 +66,10 @@ export interface IGetTemplate {
     selector: Selector;
     attributes?: IAttributes;
     properties?: IProperties;
+}
+
+export interface IAnyObject {
+    [key: string]: any;
 }
 
 export interface IAttributes {
@@ -126,6 +131,7 @@ export type GetTemplate<P extends IGetTemplate> =
     P['selector'] extends Selector.slot ? HTMLSlotElement :
     P['selector'] extends Selector.image ? HTMLImageElement :
     P['selector'] extends Selector.overlay ? HTMLDivElement :
+    P['selector'] extends Selector.a ? HTMLAnchorElement :
     P['selector'] extends Selector.subtitle
         | Selector.linkedDataCaptionElement ? HTMLSpanElement :
     P['selector'] extends Selector.figure
