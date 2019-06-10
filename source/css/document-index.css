@@ -257,42 +257,103 @@ vamtiger-cover-figure[data-hide-overlay] [data-overlay]:last-of-type
         vamtiger-cover-figure-hide-bottom-overlay 275ms forwards;
 }
 
+@element vamtiger-cover-figure and (max-width: 600px)
+{
+    :self [slot="caption"]
+    {
+        grid-row-gap: 0;
+        grid-column-gap: 0.5em;
+
+        & [data-icon]
+        {
+            height: 45px;
+            width: 45px;
+        }
+
+        & [data-title]
+        {
+            font-size: 1em;
+        }
+
+        & [data-subtitle]
+        {
+            font-size: 0.8em;
+        }
+    }
+}
+
 @element vamtiger-cover-figure and (max-width: 500px)
 {
     :self [slot="caption"]
     {
-        padding-left: 5px;
+        padding: 0 0 8px 8px;
+        grid-row-gap: 0;
+        grid-column-gap: 0.3em;
 
-        letter-spacing: 0.02em;
-    }
+        & [data-icon]
+        {
+            height: 40px;
+            width: 40px;
+        }
 
-    :self [slot="caption"] [data-title-header],
-    :self [slot="caption"] [data-subtitle]
-    {
-        position: relative;
-        left: -5px;
-    }
+        & [data-title]
+        {
+            font-size: 0.9em;
+        }
 
-    :self [slot="center-caption"]
-    {
-        font-size: 1.3em;
+        & [data-subtitle]
+        {
+            font-size: 0.8em;
+        }
     }
 }
 
-@element vamtiger-cover-figure and (max-height: 300px)
+@element vamtiger-cover-figure and (max-width: 400px)
 {
     :self [slot="caption"]
     {
-        padding-left: 5px;
+        padding: 0 0 5px 5px;
+        grid-row-gap: 0;
+        grid-column-gap: 0.2em;
 
-        letter-spacing: 0.02em;
+        & [data-icon]
+        {
+            height: 35px;
+            width: 35px;
+        }
+
+        & [data-title]
+        {
+            font-size: 0.8em;
+        }
+
+        & [data-subtitle]
+        {
+            font-size: 0.7em;
+        }
     }
+}
 
-    :self [slot="caption"] [data-title-header],
-    :self [slot="caption"] [data-subtitle]
+@element vamtiger-cover-figure and (max-width: 350px)
+{
+    :self [slot="caption"]
     {
-        position: relative;
-        left: -5px;
+        padding: 0 0 5px 5px;
+
+        & [data-icon]
+        {
+            display: none;
+        }
+
+        & [data-title]
+        {
+            font-size: 0.8em;
+        }
+
+        & [data-subtitle]
+        {
+            font-size: 0.7em;
+        }
     }
 }
 
