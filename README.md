@@ -1,2 +1,3 @@
-# vamtiger-cover-figure
-VAMTIGER Cover Figure
+---
+permalink: /build/index.html
+---
