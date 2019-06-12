@@ -1,6 +1,6 @@
 {
     "name": "vamtiger-cover-figure",
-    "version": "0.7.4",
+    "version": "0.7.5",
     "description": "VAMTIGER Cover Figure",
     "main": "build/vamtiger-cover-figure.js",
     "scripts": {
