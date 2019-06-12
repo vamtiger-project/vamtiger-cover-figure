@@ -4,6 +4,7 @@ const { VamtigerBrowserMethod } = window;
 const { loadScript } = VamtigerBrowserMethod;
 
 export default () => describe('vamtiger-cover-figure', function () {
+    this.timeout(60000);
     before(async function () {
         await loadScript({
             src: 'vamtiger-cover-figure.js'
