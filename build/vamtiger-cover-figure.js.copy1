@@ -1,32 +1,7 @@
-var _slicedToArray = function () {
-  function sliceIterator(arr, i) {
-    var _arr = [];var _n = true;var _d = false;var _e = undefined;try {
-      for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-        _arr.push(_s.value);if (i && _arr.length === i) break;
-      }
-    } catch (err) {
-      _d = true;_e = err;
-    } finally {
-      try {
-        if (!_n && _i["return"]) _i["return"]();
-      } finally {
-        if (_d) throw _e;
-      }
-    }return _arr;
-  }return function (arr, i) {
-    if (Array.isArray(arr)) {
-      return arr;
-    } else if (Symbol.iterator in Object(arr)) {
-      return sliceIterator(arr, i);
-    } else {
-      throw new TypeError("Invalid attempt to destructure non-iterable instance");
-    }
-  };
-}();
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 !function () {
   "use strict";
-
   function e(e, t, a, i) {
     return new (a || (a = Promise))(function (o, r) {
       function n(e) {
@@ -67,7 +42,7 @@ var _slicedToArray = function () {
       p = "<slot></slot> <img> <figure data-image-figure></figure> <figcaption data-image-caption></figcaption> <figure data-icon-figure></figure> <vamtiger-responsive-svg data-icon></vamtiger-responsive-svg> <header data-title-header> <h5 data-title></h5> </header> <span data-subtitle></span> <figcaption data-center-caption></figcaption> <div></div> <figcaption data-linked-data-caption></figcaption> <span data-linked-data-caption-element></span> <a></a>";var _t = t;
   const m = _t.nothing,
         f = document.createElement("template"),
-        v = ["<style>:host{display:grid;position:relative;overflow:hidden}\n/*# sourceMappingURL=index.ts.map */</style>", p].join(m);f.innerHTML = v;var u = function (e) {
+        v = ["<style>:host{display:grid;position:relative;overflow:hidden}\n/*# sourceMappingURL=index.ts.map */</style>", p].join(m);f.innerHTML = v;var u = e => {
     const t = e.selector;
     var _e$attributes = e.attributes;
     const a = _e$attributes === undefined ? {} : _e$attributes;
@@ -75,9 +50,7 @@ var _slicedToArray = function () {
     const i = _e$properties === undefined ? {} : _e$properties,
           o = Object.keys(a),
           r = f.content.querySelector(t),
-          n = r && r.cloneNode(!0);return n && (Object.assign(n, i), o.forEach(function (e) {
-      return a[e] && n.setAttribute(e, a[e] || "");
-    })), n;
+          n = r && r.cloneNode(!0);return n && (Object.assign(n, i), o.forEach(e => a[e] && n.setAttribute(e, a[e] || ""))), n;
   };var _window = window;
   const b = _window.VamtigerBrowserMethod,
         y = b.getData;var _t2 = t;
@@ -110,15 +83,9 @@ var _slicedToArray = function () {
               v = f && f.querySelector(o.title),
               b = g && u({ selector: o.subtitle, properties: { innerHTML: g } }),
               k = [m, f, b],
-              x = k.every(function (e) {
-          return Boolean(e);
-        }) && u({ selector: o.imageCaption, attributes: { slot: r.caption } });p && m && (p.addEventListener(n.svgLoaded, function e() {
-          p && p.removeEventListener(n.svgLoaded, e), x && setTimeout(function () {
-            return x.dataset.loaded = h;
-          }, w);
-        }), m.appendChild(p)), v && d && (v.innerHTML = d), f && f.setAttribute("itemprop", "name"), b && b.setAttribute("itemprop", "description"), x && (k.forEach(function (e) {
-          return e && x.appendChild(e);
-        }), t.appendChild(x));
+              x = k.every(e => Boolean(e)) && u({ selector: o.imageCaption, attributes: { slot: r.caption } });p && m && (p.addEventListener(n.svgLoaded, function e() {
+          p && p.removeEventListener(n.svgLoaded, e), x && setTimeout(() => x.dataset.loaded = h, w);
+        }), m.appendChild(p)), v && d && (v.innerHTML = d), f && f.setAttribute("itemprop", "name"), b && b.setAttribute("itemprop", "description"), x && (k.forEach(e => e && x.appendChild(e)), t.appendChild(x));
       });
     }({ element: s });
   }var _self = self;
@@ -144,11 +111,7 @@ var _slicedToArray = function () {
             c = r && r.keywords,
             l = r && r.about,
             d = (l["@context"] && l["@type"] && [l["@context"], l["@type"]].join(D), l && l.name, l && l.description, r && u({ selector: o.linkedDataCaption })),
-            g = (l && u({ selector: o.linkedDataCaption, attributes: { itemprop: "about" } }), d && [n && u({ selector: o.linkedDataCaptionElement, properties: { innerHTML: n }, attributes: { itemprop: "name" } }), s && u({ selector: o.linkedDataCaptionElement, properties: { innerHTML: s }, attributes: { itemprop: "description" } }), c && u({ selector: o.linkedDataCaptionElement, properties: { innerHTML: c }, attributes: { itemprop: "keywords" } }), r && z({ imageData: r, fieldKey: "about" }), r && z({ imageData: r, fieldKey: "producer" }), r && z({ imageData: r, fieldKey: "creator" }), r && z({ imageData: r, fieldKey: "sponsor" }), r && z({ imageData: r, fieldKey: "funder" })].filter(function (e) {
-        return e;
-      }));d && g && g.length && (g.forEach(function (e) {
-        return e && d.appendChild(e);
-      }), t.appendChild(d));
+            g = (l && u({ selector: o.linkedDataCaption, attributes: { itemprop: "about" } }), d && [n && u({ selector: o.linkedDataCaptionElement, properties: { innerHTML: n }, attributes: { itemprop: "name" } }), s && u({ selector: o.linkedDataCaptionElement, properties: { innerHTML: s }, attributes: { itemprop: "description" } }), c && u({ selector: o.linkedDataCaptionElement, properties: { innerHTML: c }, attributes: { itemprop: "keywords" } }), r && z({ imageData: r, fieldKey: "about" }), r && z({ imageData: r, fieldKey: "producer" }), r && z({ imageData: r, fieldKey: "creator" }), r && z({ imageData: r, fieldKey: "sponsor" }), r && z({ imageData: r, fieldKey: "funder" })].filter(e => e));d && g && g.length && (g.forEach(e => e && d.appendChild(e)), t.appendChild(d));
     });
   }var _window2 = window;
   const T = _window2.VamtigerBrowserMethod,
@@ -169,22 +132,16 @@ var _slicedToArray = function () {
 
       const s = _n[0],
             c = s && s.image || a,
-            l = s && [s.name, s.description].filter(function (e) {
-        return e;
-      }).join(A),
+            l = s && [s.name, s.description].filter(e => e).join(A),
             d = s["@context"] && s["@type"] && [s["@context"], s["@type"]].join(B),
             g = d && { itemscope: I, itemtype: d },
             p = g && Object.keys(g) || [],
             m = c && u({ selector: o.image, properties: { src: c, alt: l } }),
             f = m && u({ selector: o.figure, attributes: { slot: O } }),
-            v = i && [u({ selector: o.overlay, attributes: { slot: `${i}-overlay` } }), u({ selector: o.overlay, attributes: { slot: `${i}-overlay` } })];var b;m && f && (m.addEventListener("load", C), f.appendChild(m), t.appendChild(f), t.dataset.loading = I, m.setAttribute("itemprop", "image")), v && v.forEach(function (e) {
+            v = i && [u({ selector: o.overlay, attributes: { slot: `${i}-overlay` } }), u({ selector: o.overlay, attributes: { slot: `${i}-overlay` } })];var b;m && f && (m.addEventListener("load", C), f.appendChild(m), t.appendChild(f), t.dataset.loading = I, m.setAttribute("itemprop", "image")), v && v.forEach(e => {
         e && (e.dataset.overlay = I, t.appendChild(e));
-      }), g && p.forEach(function (e) {
-        return t.setAttribute(e, g[e]);
-      }), b = { element: t }, new Promise(function (e, t) {
-        j ? j(function () {
-          return S(b).then(e).catch(t);
-        }) : S(b).then(e).catch(t);
+      }), g && p.forEach(e => t.setAttribute(e, g[e])), b = { element: t }, new Promise((e, t) => {
+        j ? j(() => S(b).then(e).catch(t)) : S(b).then(e).catch(t);
       });
     });
   }const O = "vamtiger-cover-figure";var _window3 = window;
@@ -198,9 +155,7 @@ var _slicedToArray = function () {
         super();const e = this.dataset,
               t = e.overlay,
               a = e.template,
-              i = this.attachShadow(c);[u({ selector: o.style }), u({ selector: o.slot, properties: { name: O } }), t && u({ selector: o.slot, properties: { name: `${t}-overlay` } }), a && u({ selector: o.slot, properties: { name: r.template } }), u({ selector: o.slot, properties: { name: r.caption } }), u({ selector: o.slot, properties: { name: r.centerCaption } })].forEach(function (e) {
-          return e && i.appendChild(e);
-        });
+              i = this.attachShadow(c);[u({ selector: o.style }), u({ selector: o.slot, properties: { name: O } }), t && u({ selector: o.slot, properties: { name: `${t}-overlay` } }), a && u({ selector: o.slot, properties: { name: r.template } }), u({ selector: o.slot, properties: { name: r.caption } }), u({ selector: o.slot, properties: { name: r.centerCaption } })].forEach(e => e && i.appendChild(e));
       }static get observedAttributes() {
         return l;
       }connectedCallback() {
@@ -210,9 +165,7 @@ var _slicedToArray = function () {
       }attributeChangedCallback(e, t, a) {}
     } };(function () {
     return e(this, void 0, void 0, function* () {
-      yield Promise.all(d.map(function (e) {
-        return $({ src: e });
-      })), P(F);
+      yield Promise.all(d.map(e => $({ src: e }))), P(F);
     });
   })().catch(console.warn);
 }();
