@@ -1,2 +1,8 @@
-!function(t,e){"use strict";function n(t,e,n,i){return new(n||(n=Promise))(function(o,c){function r(t){try{f(i.next(t))}catch(t){c(t)}}function u(t){try{f(i.throw(t))}catch(t){c(t)}}function f(t){t.done?o(t.value):new n(function(e){e(t.value)}).then(r,u)}f((i=i.apply(t,e)).next())})}const{VamtigerBrowserMethod:i}=window,{loadScript:o}=i;e.setup("bdd"),(()=>describe("vamtiger-cover-figure",function(){this.timeout(6e4),before(function(){return n(this,void 0,void 0,function*(){yield o({src:"vamtiger-cover-figure.js"})})}),it("load script",function(){return n(this,void 0,void 0,function*(){const e=document.head.querySelector('[src="vamtiger-cover-figure.js"]');t.expect(e instanceof HTMLScriptElement).to.be.true})})}))(),e.run()}(chai,mocha);
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const mocha_1 = require("mocha");
+const load_script_1 = require("./load-script");
+mocha_1.setup('bdd');
+load_script_1.default();
+mocha_1.run();
 //# sourceMappingURL=browser.js.map
