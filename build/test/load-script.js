@@ -16,7 +16,8 @@ exports.default = () => describe('vamtiger-cover-figure', function () {
     before(function () {
         return __awaiter(this, void 0, void 0, function* () {
             yield loadScript({
-                src: 'vamtiger-cover-figure.js'
+                src: 'vamtiger-cover-figure.js',
+                transpileJs: true
             });
         });
     });
