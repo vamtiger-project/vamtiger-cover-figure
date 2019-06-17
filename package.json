@@ -66,5 +66,8 @@
         "vamtiger-node-typescript-commit": "^0.9.1",
         "vamtiger-remove": "0.0.5",
         "vamtiger-watch": "^1.3.1"
+    },
+    "dependencies": {
+        "vamtiger-export-to-browser-json": "0.0.5"
     }
 }
