@@ -12,7 +12,7 @@ const chai_1 = require("chai");
 const { VamtigerBrowserMethod } = window;
 const { loadScript } = VamtigerBrowserMethod;
 const url = 'vamtiger-cover-figure.js.json.js';
-const selector = `script[src="${url}"], script[data-name="${url}"]`;
+const selector = `script[src*="${url}"], script[data-name*="${url}"]`;
 exports.default = () => describe('vamtiger-cover-figure', function () {
     before(function () {
         return __awaiter(this, void 0, void 0, function* () {
