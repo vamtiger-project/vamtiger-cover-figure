@@ -12,19 +12,19 @@ function __awaiter(thisArg, _arguments, P, generator) {
 
 const { VamtigerBrowserMethod } = window;
 const { loadScript } = VamtigerBrowserMethod;
+const url = 'vamtiger-cover-figure.js.json.js';
+const selector = `script[src="${url}"], script[data-name="${url}"]`;
 var loadScript$1 = () => describe('vamtiger-cover-figure', function () {
-    this.timeout(60000);
     before(function () {
         return __awaiter(this, void 0, void 0, function* () {
             yield loadScript({
-                src: 'vamtiger-cover-figure.js',
-                transpileJs: true
+                src: url
             });
         });
     });
     it('load script', function () {
         return __awaiter(this, void 0, void 0, function* () {
-            const script = document.head.querySelector('[src="vamtiger-cover-figure.js"]');
+            const script = document.head.querySelector(selector);
             chai.expect(script instanceof HTMLScriptElement).to.be.true;
         });
     });

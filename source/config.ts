@@ -10,5 +10,5 @@ export const shadowRoot = {
 export const observedAttributes = Object.keys(ObservedAttributes) as ObservedAttribute[];
 
 export const dependencies = [
-    'https://unpkg.com/vamtiger-responsive-svg@latest'
+    'https://vamtiger-project.github.io/vamtiger-response-svg/build/vamtiger-responsive-svg.js.json.js'
 ];

@@ -6,6 +6,6 @@ exports.shadowRoot = {
 };
 exports.observedAttributes = Object.keys(types_1.ObservedAttributes);
 exports.dependencies = [
-    'https://unpkg.com/vamtiger-responsive-svg@latest'
+    'https://vamtiger-project.github.io/vamtiger-response-svg/build/vamtiger-responsive-svg.js.json.js'
 ];
 //# sourceMappingURL=config.js.map
