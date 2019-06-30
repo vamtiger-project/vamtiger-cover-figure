@@ -7,11 +7,6 @@ const selector = `script[src*="${url}"], script[data-name*="${url}"]`;
 
 export default () => describe('vamtiger-cover-figure', function () {
     before(async function () {
-        const { documentElement } = document;
-        const { dataset } = documentElement;
-
-        dataset.vamtigerTextMode = '';
-
         await loadScript({
             src: url
         });
