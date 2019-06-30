@@ -26,7 +26,7 @@
         "watch-css": "npm run bundle-css -- --watch",
         "watch": "vamtiger-watch --folder source --extension ts --script test --extension html --script bundle-html --extension css --script bundle-css",
         "serve": "npm run test && cd build && python -m SimpleHTTPServer 8889",
-        "publish-preview": "git add -A; git commit -m test -a; git push -u origin gh-pages"
+        "publish-preview": "npm run test && cd build && git add -A; git commit -m test -a; git push -u origin gh-pages"
     },
     "repository": {
         "type": "git",
