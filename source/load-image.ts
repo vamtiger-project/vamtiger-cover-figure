@@ -21,7 +21,10 @@ export default async function ({ element }: ILoadImage) {
         overlay: overlayPrefix,
         jsonLd: jsonLdUrl
     } = dataset;
-    const { jsonLd } = jsonLdUrl && await getData({ jsonLd: jsonLdUrl }) || { jsonLd: [] };
+    const { jsonLd } = jsonLdUrl && await getData({
+        jsonLd: jsonLdUrl,
+        textMode: true
+    }) || { jsonLd: [] };
     const [ imageData ] = jsonLd;
     const url = imageData && imageData.image || src;
     const alt = imageData && [

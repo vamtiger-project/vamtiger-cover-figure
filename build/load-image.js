@@ -20,7 +20,10 @@ function default_1({ element }) {
     return __awaiter(this, void 0, void 0, function* () {
         const dataset = element.dataset;
         const { image: src, overlay: overlayPrefix, jsonLd: jsonLdUrl } = dataset;
-        const { jsonLd } = jsonLdUrl && (yield getData({ jsonLd: jsonLdUrl })) || { jsonLd: [] };
+        const { jsonLd } = jsonLdUrl && (yield getData({
+            jsonLd: jsonLdUrl,
+            textMode: true
+        })) || { jsonLd: [] };
         const [imageData] = jsonLd;
         const url = imageData && imageData.image || src;
         const alt = imageData && [
