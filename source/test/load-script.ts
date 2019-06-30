@@ -12,7 +12,7 @@ export default () => describe('vamtiger-cover-figure', function () {
         });
     });
 
-    it('load script', async function() {
+    it.skip('load script', async function() {
         const script = document.head.querySelector(selector);
 
         expect(script instanceof HTMLScriptElement).to.be.true;
