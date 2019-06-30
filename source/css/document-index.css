@@ -257,14 +257,6 @@ vamtiger-cover-figure[data-hide-overlay] [data-overlay]:last-of-type
         vamtiger-cover-figure-hide-bottom-overlay 275ms forwards;
 }
 
-html[data-vamtiger-text-mode]
-{
-    & vamtiger-cover-figure
-    {
-        display: none;
-    }
-}
-
 @element vamtiger-cover-figure and (max-width: 600px)
 {
     :self [slot="caption"]
