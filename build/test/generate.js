@@ -19,6 +19,10 @@ const testHtmlTemplateSource = path_1.resolve(__dirname, '../../source/test/html
 const testHtmlTemplateDestination = path_1.resolve(__dirname, '../template.svg');
 const testCssSource = path_1.resolve(__dirname, '../../source/test/html/test.css');
 const testCssDestination = path_1.resolve(__dirname, '../test.css');
+const vamtigerBrowserMethod = {
+    source: path_1.resolve(__dirname, '../../node_modules/vamtiger-browser-method/build/vamtiger-browser-method.js'),
+    destination: path_1.resolve(__dirname, '../../build/vamtiger-browser-method.js')
+};
 describe('Generate', function () {
     before(function () {
         return __awaiter(this, void 0, void 0, function* () {
@@ -34,7 +38,8 @@ describe('Generate', function () {
                 vamtiger_copy_file_1.default({
                     source: testHtmlTemplateSource,
                     destination: testHtmlTemplateDestination
-                })
+                }),
+                vamtiger_copy_file_1.default(vamtigerBrowserMethod)
             ]);
         });
     });

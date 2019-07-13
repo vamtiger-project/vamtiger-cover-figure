@@ -13,9 +13,13 @@ const config_1 = require("./config");
 const document_index_1 = require("./css/document-index");
 const get_template_1 = require("./get-template");
 const load_image_1 = require("./load-image");
+const handle_visible_1 = require("./handle-visible");
 exports.name = 'vamtiger-cover-figure';
 const { VamtigerBrowserMethod } = window;
-const { loadScript } = VamtigerBrowserMethod;
+const { loadScript, intersectionObserver } = VamtigerBrowserMethod;
+const handleAttributeChanged = {
+    [types_1.ObservedAttributes.visible]: handle_visible_1.default
+};
 document_index_1.default && loadScript({ name: exports.name, css: document_index_1.default })
     .catch(console.error);
 class VamtigerCoverFigure extends HTMLElement {
@@ -73,10 +77,21 @@ class VamtigerCoverFigure extends HTMLElement {
     connectedCallback() {
         return __awaiter(this, void 0, void 0, function* () {
             const element = this;
-            yield load_image_1.default({ element });
+            if (intersectionObserver) {
+                intersectionObserver.observe(element);
+            }
+            else {
+                load_image_1.default({ element });
+            }
         });
     }
     attributeChangedCallback(name, oldValue, newValue) {
+        const params = {
+            element: this,
+            oldValue,
+            newValue
+        };
+        handleAttributeChanged[name](params);
     }
 }
 exports.default = VamtigerCoverFigure;

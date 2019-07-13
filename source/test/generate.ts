@@ -31,6 +31,16 @@ const testCssDestination = resolvePath(
     __dirname,
     '../test.css'
 );
+const vamtigerBrowserMethod = {
+    source: resolvePath(
+        __dirname,
+        '../../node_modules/vamtiger-browser-method/build/vamtiger-browser-method.js'
+    ),
+    destination: resolvePath(
+        __dirname,
+        '../../build/vamtiger-browser-method.js'
+    )
+};
 
 describe('Generate', function () {
     before(async function () {
@@ -46,7 +56,8 @@ describe('Generate', function () {
             copyFile({
                 source: testHtmlTemplateSource,
                 destination: testHtmlTemplateDestination
-            })
+            }),
+            copyFile(vamtigerBrowserMethod)
         ]);
     });
 

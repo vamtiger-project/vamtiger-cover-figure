@@ -1,6 +1,6 @@
 import {
     Selector,
-    ObservedAttribute,
+    ObservedAttributes,
     SlotName
 } from './types';
 import {
@@ -10,11 +10,15 @@ import {
 import css from './css/document-index';
 import getTemplate from './get-template';
 import loadImage from './load-image';
+import handleVisible from './handle-visible';
 
 export const name = 'vamtiger-cover-figure';
 
 const { VamtigerBrowserMethod } = window;
-const { loadScript } = VamtigerBrowserMethod;
+const { loadScript, intersectionObserver } = VamtigerBrowserMethod;
+const handleAttributeChanged = {
+    [ObservedAttributes.visible]: handleVisible
+}
 
 css && loadScript({ name, css })
     .catch(console.error);
@@ -81,10 +85,20 @@ export default class VamtigerCoverFigure extends HTMLElement {
     async connectedCallback() {
         const element = this;
 
-        await loadImage({ element });
+        if (intersectionObserver) {
+            intersectionObserver.observe(element);
+        } else {
+            loadImage({ element });
+        }
     }
 
-    attributeChangedCallback(name: ObservedAttribute, oldValue: string, newValue: string) {
+    attributeChangedCallback(name: ObservedAttributes, oldValue: string, newValue: string) {
+        const params = {
+            element: this,
+            oldValue,
+            newValue
+        };
 
+        handleAttributeChanged[name](params);
     }
 }

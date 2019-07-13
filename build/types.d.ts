@@ -50,6 +50,7 @@ export declare enum EventName {
     svgLoaded = "svgLoaded"
 }
 export declare enum ObservedAttributes {
+    visible = "data-visible"
 }
 export interface IGetTemplate {
     selector: Selector;
@@ -75,6 +76,11 @@ export interface IProperties {
 }
 export interface ILoadImage {
     element: VamtigerCoverFigure;
+}
+export interface IHandleAttributeChanged {
+    element: VamtigerCoverFigure;
+    oldValue?: string;
+    newValue?: string;
 }
 export interface ILoadImageCaption {
     element: VamtigerCoverFigure;

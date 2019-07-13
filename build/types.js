@@ -58,6 +58,7 @@ var EventName;
 })(EventName = exports.EventName || (exports.EventName = {}));
 var ObservedAttributes;
 (function (ObservedAttributes) {
+    ObservedAttributes["visible"] = "data-visible";
 })(ObservedAttributes = exports.ObservedAttributes || (exports.ObservedAttributes = {}));
 exports.imageCaptionAttribute = [
     DataAttribute.imageCaptionIcon,

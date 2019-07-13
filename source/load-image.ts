@@ -11,7 +11,7 @@ import handleLoaded from './handle-loaded-image';
 import setMicroData from './set-microdata';
 
 const { VamtigerBrowserMethod } = window;
-const { getData } = VamtigerBrowserMethod;
+const { getData, intersectionObserver } = VamtigerBrowserMethod;
 const { nothing, colonSpace, slash } = StringConstant;
 
 export default async function ({ element }: ILoadImage) {

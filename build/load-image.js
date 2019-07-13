@@ -14,7 +14,7 @@ const get_template_1 = require("./get-template");
 const handle_loaded_image_1 = require("./handle-loaded-image");
 const set_microdata_1 = require("./set-microdata");
 const { VamtigerBrowserMethod } = window;
-const { getData } = VamtigerBrowserMethod;
+const { getData, intersectionObserver } = VamtigerBrowserMethod;
 const { nothing, colonSpace, slash } = types_1.StringConstant;
 function default_1({ element }) {
     return __awaiter(this, void 0, void 0, function* () {
